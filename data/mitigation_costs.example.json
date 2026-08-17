@@ -1,0 +1,7 @@
+{
+  "_comment": "Milestone 6. Empty on purpose -- Issue #27 is where you research and fill this in. Do not guess these numbers.",
+  "rain_barrel":     {"capacity_cf": 7.35, "unit_cost": null, "annual_maintenance": null},
+  "rain_garden":     {"cost_per_cf": null, "annual_maintenance": null},
+  "dry_well":        {"cost_per_cf": null, "annual_maintenance": null},
+  "detention_basin": {"cost_per_cf": null, "annual_maintenance": null}
+}

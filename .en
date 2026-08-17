@@ -1,0 +1,7 @@
+# Copy to .env and fill in. .env is gitignored -- keep it that way.
+# Milestone 8 only. The MVP needs none of these.
+
+ANTHROPIC_API_KEY=
+
+# Feature flags let you merge unfinished work without breaking the MVP.
+ENABLE_AI_RECOMMENDATIONS=false

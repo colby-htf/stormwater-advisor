@@ -1,0 +1,11 @@
+{
+  "_comment": "Installed cost per square foot, USD. Ranges are national and vary a lot regionally. Issue #14 asks you to decide how to handle a range honestly.",
+  "_source": "See docs/data-sources.md",
+  "concrete":          {"low": 4.00,  "high": 8.00,  "pervious": false},
+  "asphalt":           {"low": 5.00,  "high": 12.00, "pervious": false},
+  "pavers":            {"low": 10.00, "high": 25.00, "pervious": false},
+  "porous_asphalt":    {"low": 7.00,  "high": 13.00, "pervious": true},
+  "pervious_concrete": {"low": 8.00,  "high": 16.00, "pervious": true},
+  "permeable_pavers":  {"low": 10.00, "high": 30.00, "pervious": true},
+  "grass_grid":        {"low": 4.00,  "high": 12.00, "pervious": true}
+}

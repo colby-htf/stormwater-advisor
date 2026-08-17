@@ -1,0 +1,19 @@
+{
+  "_comment": "Copy to esu_rates.json and verify every figure yourself before trusting it. See Issue #10. The Martinsburg entry below is a WORKED EXAMPLE drawn from the utility's 2021 launch announcement -- rates get revised, so treat it as a schema demo, not current truth.",
+  "_schema_notes": {
+    "rounding_rule": "one of: exact | nearest | ceil | floor | tier_half",
+    "billing_period": "one of: monthly | quarterly | annual",
+    "verified_on": "ISO date YOU last confirmed this against the source"
+  },
+  "wv-martinsburg": {
+    "display_name": "City of Martinsburg, WV",
+    "sqft_per_esu": 2280.0,
+    "rate_per_esu": "12.00",
+    "billing_period": "monthly",
+    "rounding_rule": "TODO -- find out. This one decision changes every bill.",
+    "minimum_charge": "6.00",
+    "maximum_esu": null,
+    "source_url": "https://www.cityofmartinsburg.org/Home/Components/News/News/73/",
+    "verified_on": "TODO"
+  }
+}
