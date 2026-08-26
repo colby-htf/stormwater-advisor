@@ -46,7 +46,11 @@ class Surface:
     label: str = ""
 
     def __post_init__(self) -> None:
-        raise NotImplementedError
+        if not isinstance(self.area_sqft, (int, float)):
+            raise TypeError(f"Surface area must be a number, got {type(self.area_sqft).__name__}")
+        if self.area_sqft < 0:
+            raise ValueError(f"Surface area must be non-negative, got {self.area_sqft}")
+        
 
 
 @dataclass
