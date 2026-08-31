@@ -39,8 +39,7 @@ The reasons that actually justify it:
 2. **Milestone 9 requires it.** Drawing polygons on aerial imagery is stateful
    client-side UI that server rendering cannot do. Adopting React later means
    rewriting the frontend later.
-3. **Learning React is an explicit goal of this project.** That is a legitimate
-   input to a technology decision on a project whose purpose is learning.
+
 
 MUI specifically, over other component libraries: it's the most documented
 React component library, which matters most when you're learning.

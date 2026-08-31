@@ -49,9 +49,6 @@ you were spending on stormwater. Get boring things boring on day one.
 - [ ] `cd frontend && npm install && npm run dev` starts Vite without error
 - [ ] First commit pushed
 
-**You'll learn.** Editable installs, why `src/` layout exists, and that you now
-have two package managers and two dev servers to keep straight.
-
 **Sit with these.**
 - Why does `pyproject.toml` say `pythonpath = ["src"]`? What breaks without it?
 - What's the difference between `pip install .` and `pip install -e .`, and

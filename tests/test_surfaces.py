@@ -11,23 +11,28 @@ a specification; a test you deleted is a regret.
 """
 
 import pytest
+from stormwater.models import Surface, SurfaceKind, SurfaceMaterial, Property
+from stormwater.surfaces import is_impervious, impervious_area, effective_runoff_area
 
 pytestmark = pytest.mark.skip(reason="TODO: Issue #6")
 
 
 def test_empty_property_has_no_impervious_area():
-    """The trivial case. If this is wrong, everything is wrong."""
-    raise NotImplementedError
+    assert impervious_area(Property()) == pytest.approx(0.0)
 
 
 def test_all_lawn_property_has_no_impervious_area():
-    raise NotImplementedError
+    assert is_impervious(Surface(kind=SurfaceKind.LAWN, material=SurfaceMaterial.GRASS)) is False
+    assert impervious_area(Property(surfaces=[Surface(kind=SurfaceKind.LAWN, material=SurfaceMaterial.GRASS, area_sqft=1000)])) == pytest.approx(0.0)
 
 
 def test_roof_and_driveway_sum():
-    """2,000 sqft roof + 600 sqft driveway = ? Write the number you EXPECT
-    in the assertion before you write the function."""
-    raise NotImplementedError
+    property = Property(surfaces=[
+        Surface(kind=SurfaceKind.ROOF, material=SurfaceMaterial.SHINGLE, area_sqft=2000),
+        Surface(kind=SurfaceKind.Driveway, material=SurfaceMaterial.ASPHALT, area_sqft=600),
+    ])
+    assert impervious_area(property) == pytest.approx(2600.0)
+
 
 
 def test_permeable_paver_driveway_treatment():
@@ -37,4 +42,4 @@ def test_permeable_paver_driveway_treatment():
 
 
 def test_negative_area_is_rejected():
-    raise NotImplementedError
+    assert impervious_area(Property()) > 0.0

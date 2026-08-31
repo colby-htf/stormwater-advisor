@@ -13,8 +13,12 @@ def is_impervious(surface: Surface) -> bool:
 
 
 def impervious_area(prop: Property) -> float:
-    """Total impervious square footage on the property."""
-    raise NotImplementedError
+    area = 0.0
+    for surface in prop.surfaces:
+        if is_impervious(surface):
+            area += surface.area;
+    return area
+    
 
 
 def effective_runoff_area(prop: Property) -> float:

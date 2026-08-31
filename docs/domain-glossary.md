@@ -1,11 +1,5 @@
 # Domain glossary
 
-Fill this in as you learn. A term you can't define in one sentence is a term
-you'll model wrong. Entries marked **[research]** are yours to complete —
-several are issues in the backlog.
-
----
-
 **Impervious surface** — Any surface that prevents rain from soaking into the
 ground: roofs, asphalt, concrete, compacted gravel (usually), pools, patios.
 The single input everything in this project depends on.
