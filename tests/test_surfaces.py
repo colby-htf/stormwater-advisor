@@ -1,19 +1,10 @@
-"""
-Start here. Seriously -- this file before any other code.
 
-The functions in surfaces.py are pure, which makes them the easiest thing in
-the project to test and the hardest thing to get subtly wrong later. Writing
-these tests first forces you to decide what the functions MEAN before you
-decide how they work.
-
-Delete the `skip` marks as you implement. A test you can't yet make pass is
-a specification; a test you deleted is a regret.
-"""
+from decimal import Decimal
 
 import pytest
-from stormwater.models import Surface, SurfaceKind, SurfaceMaterial, Property
-from stormwater.surfaces import is_impervious, impervious_area
-from decimal import Decimal
+
+from stormwater.models import Property, Surface, SurfaceKind, SurfaceMaterial
+from stormwater.surfaces import impervious_area, is_impervious
 
 
 def test_empty_property_has_no_impervious_area():
