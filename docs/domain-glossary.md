@@ -121,7 +121,7 @@ to 0.95
 | ↳ Average, 2-7% | 0.18 - 0.22 |
 | ↳ Steep, 7% | 0.25 - 0.35 |
 
-[Source](https://www.txdot.gov/manuals/des/hyd/chapter-4--hydrology/section-12--rational-method/runoff-coefficients.html)
+
 
 
 **BMP — Best Management Practice** — Any on-site stormwater control: rain

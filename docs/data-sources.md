@@ -3,22 +3,15 @@
 Every number this app shows a user must be traceable to a source and a date.
 This file is that ledger. 
 
-## Why this file matters more than it looks
-
-Your app tells someone their driveway will save them $186/year. They will
-either act on that or dispute it. Either way, "where did that come from?" must
-be answerable in under a minute, by you, in six months, without re-deriving
-anything.
 
 ## ESU / stormwater utility rates
 
-| Municipality | 1 ESU (sq ft) | Rate | Period | Source | Verified |
-|---|---|---|---|---|---|
-| Martinsburg, WV | 2,280 | $12.00 | monthly | [City announcement](https://www.cityofmartinsburg.org/Home/Components/News/News/73/) | **TODO** |
-| Morgantown, WV | ? | ? | ? | [MUB Stormwater](ht
+| Municipality         | 1 ESU in sqft | Rate   | Period  | Rounding | Minimum | Source                               |
+| -------------------- | ------------- | ------ | ------- | -------- | ------- | ------------------------------------ |
+| District of Columbia | 1,000         | $2.67  | monthly | exact    | none    | [DOEE Stormwater Fee](https://doee.dc.gov/service/changes-districts-stormwater-fee) |
+| Martinsburg, WV      | 2,280         | $12.00 | monthly | half-ERU | $6.00   | [Martinsburg City Code Section 936.05](https://codelibrary.amlegal.com/codes/martinsburg/latest/martinsburg_wv/0-0-0-16855) |
 
-tps://mub.org/stormwater) — figures not on the landing page; MUB directs enquiries to (304) 292-8443 / stormwater@mub.org, and Article 929 of the city code | **TODO** |
-| Beckley, WV | ? | ? | ? | [Beckley Sanitary Board stormwater FAQ](https://beckleysanitaryboard.org/stormwater-faq/) | **TODO** |
+
 
 Notes:
 
