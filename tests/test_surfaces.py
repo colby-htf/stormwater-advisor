@@ -10,12 +10,10 @@ Delete the `skip` marks as you implement. A test you can't yet make pass is
 a specification; a test you deleted is a regret.
 """
 
-from decimal import Decimal
-
 import pytest
-
-from stormwater.models import Property, Surface, SurfaceKind, SurfaceMaterial
-from stormwater.surfaces import impervious_area, is_impervious
+from stormwater.models import Surface, SurfaceKind, SurfaceMaterial, Property
+from stormwater.surfaces import is_impervious, impervious_area
+from decimal import Decimal
 
 
 def test_empty_property_has_no_impervious_area():

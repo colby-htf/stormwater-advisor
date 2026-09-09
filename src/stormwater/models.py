@@ -97,18 +97,5 @@ class Comparison:
     annual_savings: Decimal
     simple_payback_years: float | None
 
-    @dataclass(frozen=True)
-    class EsuRate:
-        """Municipal ESU rate for a given year."""
 
-        municipality_id: str
-        display_name: str
-        sqft_per_esu: Decimal
-        rate_per_esu: Decimal
-        billing_period: str
-        minimum_charge: Decimal | None
-        maximum_esu: Decimal | None
-        rounding_rule: str | None = None
-        verified_on: str
-        source_url: str
         

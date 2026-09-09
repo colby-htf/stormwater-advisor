@@ -3,6 +3,12 @@
 Every number this app shows a user must be traceable to a source and a date.
 This file is that ledger. 
 
+## Why this file matters more than it looks
+
+Your app tells someone their driveway will save them $186/year. They will
+either act on that or dispute it. Either way, "where did that come from?" must
+be answerable in under a minute, by you, in six months, without re-deriving
+anything.
 
 ## ESU / stormwater utility rates
 

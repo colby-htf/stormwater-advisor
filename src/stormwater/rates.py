@@ -15,18 +15,18 @@ class RateNotFoundError(LookupError):
 
 @dataclass(frozen=True)
 class EsuRate:
-    """One municipality's stormwater billing rule."""
+    """Municipal ESU rate for a given year."""
 
     municipality_id: str
     display_name: str
-    sqft_per_esu: float
+    sqft_per_esu: Decimal
     rate_per_esu: Decimal
     billing_period: str
-    rounding_rule: str
     minimum_charge: Decimal | None
-    maximum_esu: float | None
-    source_url: str
+    maximum_esu: Decimal | None
+    rounding_rule: str | None = None
     verified_on: str
+    source_url: str
 
     def annualize(self, amount: Decimal) -> Decimal:
         """Convert one billing period's charge to an annual figure."""
