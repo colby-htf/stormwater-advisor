@@ -8,11 +8,6 @@ from pathlib import Path
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
-
-class RateNotFoundError(LookupError):
-    """Raised when a municipality has no rate on file."""
-
-
 @dataclass(frozen=True)
 class EsuRate:
     """Municipal ESU rate for a given year."""
@@ -22,15 +17,21 @@ class EsuRate:
     sqft_per_esu: Decimal
     rate_per_esu: Decimal
     billing_period: str
-    minimum_charge: Decimal | None
-    maximum_esu: Decimal | None
-    rounding_rule: str | None = None
     verified_on: str
     source_url: str
+    # Optional fields with defaults below:
+    rounding_rule: str | None = None
+    minimum_charge: Decimal | None = None
+    maximum_esu: Decimal | None = None
+        
 
-    def annualize(self, amount: Decimal) -> Decimal:
-        """Convert one billing period's charge to an annual figure."""
-        raise NotImplementedError
+class RateNotFoundError(LookupError):
+    """Raised when a municipality has no rate on file."""
+
+
+def annualize(self, amount: Decimal) -> Decimal:
+     """Convert one billing period's charge to an annual figure."""
+     raise NotImplementedError
 
 
 def load_esu_rates(path: Path | None = None) -> dict[str, EsuRate]:

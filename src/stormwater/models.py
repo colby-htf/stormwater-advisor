@@ -68,8 +68,8 @@ class FeeResult:
     """The output of an ESU fee calculation for one property, one year."""
 
     impervious_sqft: float
-    esu_count: float
-    billed_esu_count: float
+    esu_count: Decimal
+    billed_esu_count: Decimal
     annual_fee: Decimal
     rate_source: str
 
@@ -97,5 +97,3 @@ class Comparison:
     annual_savings: Decimal
     simple_payback_years: float | None
 
-
-        
