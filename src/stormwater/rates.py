@@ -5,6 +5,7 @@ from __future__ import annotations
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
+import json
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
@@ -23,20 +24,30 @@ class EsuRate:
     rounding_rule: str | None = None
     minimum_charge: Decimal | None = None
     maximum_esu: Decimal | None = None
+
+
+    def annualize(self, amount: Decimal) -> Decimal:
+        """Convert a monthly or annual amount to an annual amount."""
+        if self.billing_period == "monthly":
+            return amount * Decimal(12)
+        elif self.billing_period == "quarterly":
+            return amount * Decimal(4)
+        elif self.billing_period == "annual":
+            return amount
+        else:
+            raise ValueError(f"Unknown billing period: {self.billing_period}")
+
+
         
 
 class RateNotFoundError(LookupError):
     """Raised when a municipality has no rate on file."""
 
 
-def annualize(self, amount: Decimal) -> Decimal:
-     """Convert one billing period's charge to an annual figure."""
-     raise NotImplementedError
-
 
 def load_esu_rates(path: Path | None = None) -> dict[str, EsuRate]:
     """Read data/esu_rates.json into a dict keyed by municipality_id."""
-    raise NotImplementedError
+    
 
 
 def get_rate(municipality_id: str) -> EsuRate:
