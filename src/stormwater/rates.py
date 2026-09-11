@@ -3,8 +3,6 @@
 from __future__ import annotations
 
 import json
-import os
-
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
@@ -48,16 +46,21 @@ class RateNotFoundError(LookupError):
 
 """Read data/esu_rates.json into a dict keyed by municipality_id."""
 def load_esu_rates(path: Path | None = None) -> dict[str, EsuRate]:
+    if path is None:
+        path = DATA_DIR / "esu_rates.json"
     try:
-        with open(DATA_DIR/"esu_rates.json", "r", encoding="utf-8") as f:
+        with open(path, "r", encoding="utf-8") as f:
             data = json.load(f)
     except FileNotFoundError:
         raise FileNotFoundError(f"Could not find ESU rates file at {path}")
 
     rates = {}
-    for item in data:
+    for municipality_id, item in data.items():
+        if municipality_id.startswith("_"):
+            continue
         try:
             rate = EsuRate(
+                municipality_id=municipality_id,
                 display_name=item["display_name"],
                 sqft_per_esu=Decimal(item["sqft_per_esu"]),
                 rate_per_esu=Decimal(item["rate_per_esu"]),
@@ -70,14 +73,18 @@ def load_esu_rates(path: Path | None = None) -> dict[str, EsuRate]:
             )
             rates[rate.municipality_id] = rate
         except KeyError as e:
-            raise ValueError(f"Missing required field {e} in ESU rate data: {item}")
-        except Exception as e:
-            raise ValueError(f"Error processing ESU rate data: {item}. Error: {e}")
+            raise ValueError(f"Missing required field {e} in ESU rate data: {municipality_id}")
+
+
+    return rates
 
     
 def get_rate(municipality_id: str) -> EsuRate:
     """Look up one rate, or raise RateNotFoundError."""
-    raise NotImplementedError
+    loaded_rates = load_esu_rates()
+    if municipality_id not in loaded_rates:
+        raise RateNotFoundError(f"No ESU rate found for municipality_id: {municipality_id}")
+    return loaded_rates[municipality_id]
 
 
 def load_material_costs(path: Path | None = None) -> dict:

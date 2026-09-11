@@ -12,8 +12,6 @@ dist/
 build/
 .DS_Store
 
-# Real data, not checked in
-data/esu_rates.json 
 
 # frontend
 node_modules/

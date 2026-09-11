@@ -1,0 +1,26 @@
+{
+  "martinsburg-wv": {
+    "municipality_id": "martinsburg-wv",
+    "display_name": "Martinsburg, WV",
+    "sqft_per_esu": 2280.0,
+    "rate_per_esu": "12.00",
+    "billing_period": "monthly",
+    "rounding_rule": "half",
+    "minimum_charge": "6.00",
+    "maximum_esu": null,
+    "source_url": "https://codelibrary.amlegal.com/codes/martinsburg/latest/martinsburg_wv/0-0-0-16855",
+    "verified_on": "2026-09-09"
+  },
+  "washington-dc": {
+    "municipality_id": "washington-dc",
+    "display_name": "District of Columbia",
+    "sqft_per_esu": 1000.0,
+    "rate_per_esu": "2.67",
+    "billing_period": "monthly",
+    "rounding_rule": "exact",
+    "minimum_charge": null,
+    "maximum_esu": null,
+    "source_url": "https://doee.dc.gov/service/changes-districts-stormwater-fee",
+    "verified_on": "2026-09-02"
+  }
+}
