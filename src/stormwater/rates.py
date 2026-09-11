@@ -2,10 +2,12 @@
 
 from __future__ import annotations
 
+import json
+import os
+
 from dataclasses import dataclass
 from decimal import Decimal
 from pathlib import Path
-import json
 
 DATA_DIR = Path(__file__).resolve().parents[2] / "data"
 
@@ -44,12 +46,35 @@ class RateNotFoundError(LookupError):
     """Raised when a municipality has no rate on file."""
 
 
-
+"""Read data/esu_rates.json into a dict keyed by municipality_id."""
 def load_esu_rates(path: Path | None = None) -> dict[str, EsuRate]:
-    """Read data/esu_rates.json into a dict keyed by municipality_id."""
+    try:
+        with open(DATA_DIR/"esu_rates.json", "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Could not find ESU rates file at {path}")
+
+    rates = {}
+    for item in data:
+        try:
+            rate = EsuRate(
+                display_name=item["display_name"],
+                sqft_per_esu=Decimal(item["sqft_per_esu"]),
+                rate_per_esu=Decimal(item["rate_per_esu"]),
+                billing_period=item["billing_period"],
+                verified_on=item["verified_on"],
+                source_url=item["source_url"],
+                rounding_rule=item.get("rounding_rule"),
+                minimum_charge=Decimal(item["minimum_charge"]) if item.get("minimum_charge") else None,
+                maximum_esu=Decimal(item["maximum_esu"]) if item.get("maximum_esu") else None,
+            )
+            rates[rate.municipality_id] = rate
+        except KeyError as e:
+            raise ValueError(f"Missing required field {e} in ESU rate data: {item}")
+        except Exception as e:
+            raise ValueError(f"Error processing ESU rate data: {item}. Error: {e}")
+
     
-
-
 def get_rate(municipality_id: str) -> EsuRate:
     """Look up one rate, or raise RateNotFoundError."""
     raise NotImplementedError
