@@ -1,0 +1,16 @@
+{
+    "asphalt": 8.50,
+    "concrete": 10.50,
+    "porous_asphalt": 11.00,
+    "pervious_concrete": 12.00,
+    "permeable_pavers": 20.00,
+    "shingle": 5.00,
+    "turf": 22.50,
+    "metal": 12.00,
+    "gravel": 1.50,
+    "grass_grid": 8.00
+}
+
+
+
+
