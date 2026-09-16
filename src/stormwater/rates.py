@@ -89,4 +89,16 @@ def get_rate(municipality_id: str) -> EsuRate:
 
 def load_material_costs(path: Path | None = None) -> dict:
     """Installed cost per square foot, by SurfaceMaterial."""
-    raise NotImplementedError
+    if path is None:
+        path = DATA_DIR / "material_costs.json"
+    try:
+        with open(path, "r", encoding="utf-8") as f:
+            data = json.load(f)
+    except FileNotFoundError:
+        raise FileNotFoundError(f"Could not find material costs file at {path}")
+
+    costs = {}
+    for material, cost in data.items():
+        costs[material] = Decimal(cost)
+
+    return costs
