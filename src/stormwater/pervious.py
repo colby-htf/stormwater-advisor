@@ -4,9 +4,9 @@ from __future__ import annotations
 
 from decimal import Decimal
 
-from .models import Comparison, PerviousOption, Property, SurfaceMaterial, Surface
-from .rates import EsuRate, load_material_costs
 from .esu import annual_fee
+from .models import Comparison, PerviousOption, Property, Surface, SurfaceMaterial
+from .rates import EsuRate, load_material_costs
 
 PERVIOUS_SUBSTITUTES: dict[SurfaceMaterial, list[SurfaceMaterial]] = {
     SurfaceMaterial.ASPHALT: [SurfaceMaterial.POROUS_ASPHALT],
@@ -67,11 +67,63 @@ def evaluate_option(
                 to_material=to_material,
                 area_sqft=surface.area_sqft,
                 upfront_cost_delta=delta,
-                annual_savings=annual_savings,
+                annual_fee_savings=annual_savings,
             )   
         
 
             
 def compare(prop: Property, rate: EsuRate) -> Comparison:
-    """Baseline vs. all-recommended-swaps. The headline result."""
-    
+    baseline = annual_fee(prop, rate)
+    eligible = eligible_surfaces(prop)
+    options = []
+
+    for surface in eligible:
+        # Evalutate swapping to its recommended pervious material
+        to_material = PERVIOUS_SUBSTITUTES[surface.material][0]
+        option = evaluate_option(prop, surface.label, to_material, rate)
+        options.append(option)
+
+    #create proposed property with all swaps applied
+    mapping = {opt.surface_label: opt.to_material for opt in options}
+    proposed_surfaces = []
+    for s in prop.surfaces:
+        if s.label not in mapping:
+            swapped = Surface(
+                kind=s.kind,
+                material=s.material,
+                area_sqft=s.area_sqft,
+                label=s.label,
+            )
+            proposed_surfaces.append(swapped)
+        else:
+            s = Surface(
+                kind=s.kind,
+                material=mapping[s.label],
+                area_sqft=s.area_sqft,
+                label=s.label,
+            )
+            proposed_surfaces.append(s)
+
+    proposed_prop = Property(
+        surfaces=proposed_surfaces,
+        municipality_id=prop.municipality_id,
+        parcel_area_sqft=prop.parcel_area_sqft,
+        address=prop.address
+    )
+
+    # get proposed fee
+    proposed_fee = annual_fee(proposed_prop, rate)
+    total_upfront = sum(opt.upfront_cost_delta for opt in options)
+    total_savings = sum(opt.annual_fee_savings for opt in options)
+
+    # Calculate payback
+    payback = None if total_savings <= 0 else float(total_upfront / total_savings)
+
+    return Comparison(
+        baseline=baseline,
+        proposed=proposed_fee,
+        options=options,
+        upfront_cost_delta=total_upfront,
+        annual_savings=total_savings,
+        simple_payback_years=payback,
+    )

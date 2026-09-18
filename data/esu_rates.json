@@ -1,4 +1,9 @@
 {
+    "_schema_notes": {
+    "rounding_rule": "optional - one of: exact | half | whole",
+    "billing_period": "one of: monthly | quarterly | annual",
+    "verified_on": "ISO date last confirmed this against the source"
+  },
   "martinsburg-wv": {
     "municipality_id": "martinsburg-wv",
     "display_name": "Martinsburg, WV",

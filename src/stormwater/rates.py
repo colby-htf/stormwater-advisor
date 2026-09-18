@@ -21,10 +21,10 @@ class EsuRate:
     verified_on: str
     source_url: str
     # Optional fields with defaults below:
-    rounding_rule: str | None = None
+    rounding_rule: str = "exact"  # Changed: removed | None
     minimum_charge: Decimal | None = None
     maximum_esu: Decimal | None = None
-
+    
 
     def annualize(self, amount: Decimal) -> Decimal:
         """Convert a monthly or annual amount to an annual amount."""

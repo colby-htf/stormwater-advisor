@@ -18,20 +18,18 @@ def esu_count(impervious_sqft: float, rate: EsuRate) -> Decimal:
 def billable_esu(raw_esu: Decimal, rate: EsuRate) -> Decimal:
     """Apply the municipality's rounding rule, floor, and cap."""
     billable = raw_esu
-    if rate.rounding_rule == "exact":
+    rule = rate.rounding_rule or "exact"  # Default to exact if None
+    
+    if rule == "exact":
         pass
-    elif rate.rounding_rule == "half":
+    elif rule == "half":
         billable = (raw_esu * Decimal(2)).quantize(Decimal(1), rounding=ROUND_UP) / Decimal(2)
-    elif rate.rounding_rule == "whole":
+    elif rule == "whole":
         # Round UP to nearest 1.0
         billable = raw_esu.quantize(Decimal(1), rounding=ROUND_UP)
     else:
-        raise NotImplementedError(f"Rounding rule '{rate.rounding_rule}' not implemented")
-
-    if rate.minimum_charge is not None:
-        min_esu = rate.minimum_charge / rate.rate_per_esu
-        billable = max(billable, min_esu)
-
+        raise NotImplementedError(f"Rounding rule '{rule}' not implemented")
+    
     return billable
 
 
