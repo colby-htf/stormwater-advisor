@@ -3,9 +3,7 @@
 Estimates a property's stormwater utility fee from its impervious area, and
 compares that against what pervious pavement alternatives would cost and save.
 
-**Status:** scaffold. Nothing is implemented. Every module is a stub with a
-docstring explaining its job and the questions you should answer before
-writing it. Work the issues in `ISSUES.md` in order.
+**Status:** Work in Progress.
 
 ---
 
