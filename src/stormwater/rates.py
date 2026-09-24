@@ -38,8 +38,7 @@ class EsuRate:
             raise ValueError(f"Unknown billing period: {self.billing_period}")
 
 
-        
-
+    
 class RateNotFoundError(LookupError):
     """Raised when a municipality has no rate on file."""
 
