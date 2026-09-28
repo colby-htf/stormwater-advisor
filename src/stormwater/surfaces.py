@@ -34,8 +34,8 @@ def is_impervious(surface: Surface) -> bool:
     return surface.material not in pervious_materials
 
 
-def impervious_area(prop: Property) -> Decimal:
-    area = Decimal('0.0')
+def impervious_area(prop: Property) -> float:
+    area = 0.0
     for surface in prop.surfaces:
         if is_impervious(surface):
             area += surface.area_sqft
@@ -43,8 +43,8 @@ def impervious_area(prop: Property) -> Decimal:
     
 
 
-def effective_runoff_area(prop: Property) -> Decimal:
-    total = Decimal('0.0')
+def effective_runoff_area(prop: Property) -> float:
+    total = 0.0
     for surface in prop.surfaces:
         if is_impervious(surface):
             coefficient = RUNOFF_COEFFICIENTS.get(surface.material)

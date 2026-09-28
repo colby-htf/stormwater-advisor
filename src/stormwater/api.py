@@ -7,7 +7,7 @@ from fastapi.responses import JSONResponse
 
 from .models import Property, Surface, SurfaceMaterial, SurfaceKind
 from .rates import load_esu_rates
-from .pervious import compare
+from .scenarios import homeowner_scenario
 from .schemas import EstimateRequest, EstimateResponse, FeeResultResponse, PerviousOptionResponse
 
 app = FastAPI(title="Stormwater Advisor", version="0.1.0")
@@ -39,7 +39,6 @@ def list_municipalities() -> list:
 @app.post("/api/estimate")
 def estimate(request: EstimateRequest) -> EstimateResponse:
     """Calculate stormwater fees and compare pervious alternatives."""
-
     try:
         rates = load_esu_rates()
         rate = rates[request.municipality_id]
@@ -48,22 +47,36 @@ def estimate(request: EstimateRequest) -> EstimateResponse:
             status_code=404,
             content={"detail": f"Municipality '{request.municipality_id}' not found"}
         )
-
-    surfaces = [
-        Surface(
-            kind=SurfaceKind(s.kind),
-            material=SurfaceMaterial(s.material),
-            area_sqft=s.area_sqft,
-            label=s.label,
-        )
-        for s in request.surfaces
-    ]
-
-    prop = Property(
-        surfaces=surfaces,
-        municipality_id=request.municipality_id,
-        parcel_area_sqft=request.parcel_area_sqft,
-        address=request.address,
+    
+    comparison = homeowner_scenario(
+        request.surfaces,
+        request.municipality_id,
+        request.parcel_area_sqft,
+        request.address,
+        rate,
     )
-
-    comparison = compare(prop, rate)
+    
+    return EstimateResponse(
+        baseline=FeeResultResponse(
+            esu_count=comparison.baseline.esu_count,
+            annual_fee=comparison.baseline.annual_fee,
+        ),
+        proposed=FeeResultResponse(
+            esu_count=comparison.proposed.esu_count,
+            annual_fee=comparison.proposed.annual_fee,
+        ),
+        options=[
+            PerviousOptionResponse(
+                surface_label=opt.surface_label,
+                from_material=opt.from_material.value,
+                to_material=opt.to_material.value,
+                area_sqft=opt.area_sqft,
+                upfront_cost_delta=opt.upfront_cost_delta,
+                annual_fee_savings=opt.annual_fee_savings,
+            )
+            for opt in comparison.options
+        ],
+        upfront_cost_delta=comparison.upfront_cost_delta,
+        annual_savings=comparison.annual_savings,
+        simple_payback_years=comparison.simple_payback_years,
+    )
