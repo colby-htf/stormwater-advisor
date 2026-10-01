@@ -5,7 +5,6 @@ from __future__ import annotations
 from fastapi import FastAPI
 from fastapi.responses import JSONResponse
 
-from .models import Property, Surface, SurfaceMaterial, SurfaceKind
 from .rates import load_esu_rates
 from .scenarios import homeowner_scenario
 from .schemas import EstimateRequest, EstimateResponse, FeeResultResponse, PerviousOptionResponse
