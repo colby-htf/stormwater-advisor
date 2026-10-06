@@ -33,7 +33,6 @@ def billable_esu(raw_esu: Decimal, rate: EsuRate) -> Decimal:
     return billable
 
 
-
 def annual_fee(prop: Property, rate: EsuRate) -> FeeResult:
     """Full pipeline: property -> impervious area -> ESUs -> annual dollars."""
     impervious_sqft = impervious_area(prop)

@@ -34,7 +34,6 @@ def list_municipalities() -> list:
     return response
 
 
-
 @app.post("/api/estimate")
 def estimate(request: EstimateRequest) -> EstimateResponse:
     """Calculate stormwater fees and compare pervious alternatives."""

@@ -52,7 +52,6 @@ class Surface:
             raise ValueError(f"Surface area must be non-negative, got {self.area_sqft}")
         
 
-
 @dataclass
 class Property:
     """A parcel: its surfaces, location, and lot area."""

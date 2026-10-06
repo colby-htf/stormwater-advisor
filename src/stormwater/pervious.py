@@ -70,8 +70,7 @@ def evaluate_option(
                 annual_fee_savings=annual_savings,
             )   
         
-
-            
+        
 def compare(prop: Property, rate: EsuRate) -> Comparison:
     baseline = annual_fee(prop, rate)
     eligible = eligible_surfaces(prop)

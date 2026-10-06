@@ -42,7 +42,6 @@ def impervious_area(prop: Property) -> float:
     return area
     
 
-
 def effective_runoff_area(prop: Property) -> float:
     total = 0.0
     for surface in prop.surfaces:
