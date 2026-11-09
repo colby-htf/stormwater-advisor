@@ -5,8 +5,13 @@
 import { useState } from 'react'
 import { ThemeProvider, CssBaseline } from '@mui/material'
 import theme from './theme'
+import MunicipalityPicker from './components/MunicipalityPicker'
 
 export default function App() {
-  // TODO — Issue #21
-  throw new Error('Not implemented')
+  return (
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <MunicipalityPicker onSelect={id => console.log(id)} />
+    </ThemeProvider>
+  )
 }
