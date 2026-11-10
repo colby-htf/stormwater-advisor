@@ -19,7 +19,7 @@
   },
   "washington-dc":{
     "municipality_id": "washington-dc",
-    "display_name": "District of Columbia",
+    "display_name": "Washington, DC",
     "sqft_per_esu": "1000.0",
     "rate_per_esu": "2.67",
     "billing_period": "monthly",
