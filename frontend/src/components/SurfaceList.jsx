@@ -1,7 +1,8 @@
 /**
  * Dynamic list of surface entries with add/remove functionality.
  */
-import { Button, TextField, MenuItem } from "@mui/material"
+import { useState } from "react"
+import { Box, Button, TextField, MenuItem } from "@mui/material"
 
 
 const SURFACE_KINDS = [
@@ -29,14 +30,18 @@ const SURFACE_MATERIALS = [
 ]
 
 export function SurfaceRow({ surface, onChange, onRemove }) {
+  const [showHelper, setHelper] = useState(false)
+  const [length, setLength] = useState('')
+  const [width, setWidth] = useState('')
+
   return (
-    <>
-      <TextField select label="Kind" value={surface.kind} onChange={event => onChange(surface.id, { kind: event.target.value })}>
+    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 2 }}>
+      <TextField select label="Kind" sx={{ minWidth: 140 }} value={surface.kind} onChange={event => onChange(surface.id, { kind: event.target.value })}>
         {SURFACE_KINDS.map(k => (
           <MenuItem key={k.value} value={k.value}>{k.label}</MenuItem>
         ))}
       </TextField>
-      <TextField select label="Material" value={surface.material} onChange={event => onChange(surface.id, { material: event.target.value })}>
+      <TextField select label="Material" sx={{ minWidth: 140 }} value={surface.material} onChange={event => onChange(surface.id, { material: event.target.value })}>
         {SURFACE_MATERIALS.map(m => (
           <MenuItem key={m.value} value={m.value}>{m.label}</MenuItem>
         ))}
@@ -47,9 +52,28 @@ export function SurfaceRow({ surface, onChange, onRemove }) {
         value={surface.area_sqft}
         onChange={event => onChange(surface.id, { area_sqft: event.target.value })}
       />
-      <TextField value={surface.label} label="Label" onChange={event => onChange(surface.id, { label: event.target.value })}></TextField>
+      <Button onClick={() => setHelper(!showHelper)}>Don't know the area?</Button>
+      {showHelper && (
+        <>
+          <TextField type="number" value={length} label="Length (ft)" onChange={event => {
+            const newLength = event.target.value
+            setLength(newLength)
+            const area = newLength === '' || width === '' ? '' : parseFloat(newLength) * parseFloat(width)
+            onChange(surface.id, { area_sqft: area })
+          }}
+          />
+          <TextField type="number" value={width} label="Width (ft)" onChange={event => {
+            const newWidth = event.target.value
+            setWidth(newWidth)
+            const area = newWidth === '' || length === '' ? '' : parseFloat(newWidth) * parseFloat(length)
+            onChange(surface.id, { area_sqft: area })
+          }}
+          />
+        </>
+      )}
+      <TextField value={surface.label} label="Label" placeholder="e.g., Front driveway" onChange={event => onChange(surface.id, { label: event.target.value })}></TextField>
       <Button variant="contained" onClick={() => onRemove(surface.id)}>Remove</Button>
-    </>
+    </Box>
   )
 }
 

@@ -8,10 +8,18 @@ export async function fetchMunicipalities() {
   const res = await fetch(`${BASE}/municipalities`)
   if (!res.ok) {
     throw new Error(`Error ${res.status} returned.`)
-  } return res.json()
-  }
+  } 
+  return res.json()
+}
 
-export async function requestEstimate({ surfaces, municipalityId }) {
-  // TODO — Issue #21
-  throw new Error('Not implemented')
+export async function requestEstimate({ surfaces, municipality_id, address, parcel_area_sqft }) {
+  const res = await fetch(`${BASE}/estimate`, {
+    method: 'POST',
+    headers:{ 'Content-Type': 'application/json' },
+    body: JSON.stringify({ surfaces, municipality_id, address, parcel_area_sqft }),
+  })
+  if (!res.ok) {
+    throw new Error(`Error ${res.status} returned`)
+  }
+  return res.json()
 }
