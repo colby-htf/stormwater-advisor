@@ -1,6 +1,6 @@
 # Backlog
 
-42 issues in dependency order. Issues 1–26 are the MVP; everything after is
+42 issues in dependency order. Issues 4–29 are the MVP; everything after is
 expansion. `scripts/create_issues.py` parses this file and creates them all in
 GitHub, so keep the heading format intact if you edit it.
 
@@ -13,18 +13,18 @@ the actual curriculum.
 
 | | | |
 |---|---|---|
-| M0 | Foundation | 1–4 |
-| M1 | Impervious area core | 5–8 |
-| M2 | ESU fee calculation | 9–12 |
-| M3 | Pervious pavement comparison | 13–16 |
-| M4 | JSON API | 17–20 |
-| M5 | React + MUI frontend — **MVP ships here** | 21–26 |
-| M6 | On-site mitigation costs | 27–29 |
-| M7 | Developer / permitting path | 30–32 |
-| M8 | AI recommendation layer | 33–36 |
-| M9 | Map-based area capture | 37–38 |
-| M10 | Future rainfall & benefits | 39–40 |
-| M11 | Multi-municipality scale-out | 41–42 |
+| M0 | Foundation | 4–7 |
+| M1 | Impervious area core | 8–11 |
+| M2 | ESU fee calculation | 12–15 |
+| M3 | Pervious pavement comparison | 16–19 |
+| M4 | JSON API | 20–23 |
+| M5 | React + MUI frontend — **MVP ships here** | 24–29 |
+| M6 | On-site mitigation costs | 30–32 |
+| M7 | Developer / permitting path | 33–35 |
+| M8 | AI recommendation layer | 36–39 |
+| M9 | Map-based area capture | 40–41 |
+| M10 | Future rainfall & benefits | 42–43 |
+| M11 | Multi-municipality scale-out | 44–45 |
 
 **A note on the order.** Milestones 1–4 are pure Python and end with a working
 JSON API you can exercise from `/docs`. Not a line of React until M5. That's
@@ -36,7 +36,7 @@ of your knowledge is at fault.
 
 ## M0 — Foundation
 
-### 1. Get the repo, virtualenv, and a green test run
+### 4. Get the repo, virtualenv, and a green test run
 `labels: setup` `milestone: M0 — Foundation` `depends: none`
 
 **Why.** Every hour spent on a broken toolchain later is an hour you thought
@@ -59,8 +59,8 @@ you were spending on stormwater. Get boring things boring on day one.
 
 ---
 
-### 2. Add CI that runs tests and the linter on every push
-`labels: setup, infra` `milestone: M0 — Foundation` `depends: 1`
+### 5. Add CI that runs tests and the linter on every push
+`labels: setup, infra` `milestone: M0 — Foundation` `depends: 4`
 
 **Why.** You are one person and you will forget things. CI is the teammate who
 doesn't.
@@ -79,7 +79,7 @@ doesn't.
 
 ---
 
-### 3. Fill in the domain glossary from primary sources
+### 6. Fill in the domain glossary from primary sources
 `labels: research, docs` `milestone: M0 — Foundation` `depends: none`
 
 **Why.** You are building a billing estimator for a domain you don't yet know.
@@ -98,7 +98,7 @@ produces a confidently wrong number.
 
 ---
 
-### 4. Start an architecture decision log
+### 7. Start an architecture decision log
 `labels: docs` `milestone: M0 — Foundation` `depends: none`
 
 **Why.** In four months you will look at a strange choice and not remember
@@ -118,8 +118,8 @@ that.
 
 ## M1 — Impervious area core
 
-### 5. Define the domain model
-`labels: core` `milestone: M1 — Impervious area core` `depends: 1`
+### 8. Define the domain model
+`labels: core` `milestone: M1 — Impervious area core` `depends: 4`
 
 **Why.** `models.py` is the vocabulary every other module speaks. Getting it
 roughly right now costs an afternoon; getting it wrong costs a rewrite of
@@ -144,8 +144,8 @@ is an architectural decision rather than boilerplate.
 
 ---
 
-### 6. Write failing tests for impervious area
-`labels: core, tests` `milestone: M1 — Impervious area core` `depends: 5`
+### 9. Write failing tests for impervious area
+`labels: core, tests` `milestone: M1 — Impervious area core` `depends: 8`
 
 **Why.** Writing these before the implementation forces you to decide what
 "impervious area" *means* before you decide how to compute it. That ordering
@@ -165,7 +165,7 @@ is the whole point.
 
 ---
 
-### 7. Source runoff coefficients from a citable reference
+### 10. Source runoff coefficients from a citable reference
 `labels: research` `milestone: M1 — Impervious area core` `depends: none`
 
 **Why.** `RUNOFF_COEFFICIENTS` is an empty dict on purpose. Numbers from memory
@@ -184,15 +184,15 @@ are how a hobby project becomes a liability.
 
 ---
 
-### 8. Implement `surfaces.py`
-`labels: core` `milestone: M1 — Impervious area core` `depends: 6, 7`
+### 11. Implement `surfaces.py`
+`labels: core` `milestone: M1 — Impervious area core` `depends: 9, 10`
 
 **Why.** The root of the dependency tree. Everything downstream is a function
 of this number.
 
 **Done when.**
 - [ ] `is_impervious`, `impervious_area`, `effective_runoff_area` implemented
-- [ ] All tests from #6 pass
+- [ ] All tests from #9 pass
 - [ ] The module imports nothing from `esu`, `pervious`, `rates`, or `fastapi`
 
 **Sit with these.**
@@ -203,8 +203,8 @@ of this number.
 
 ## M2 — ESU fee calculation
 
-### 9. Design the rate data schema
-`labels: core, research` `milestone: M2 — ESU fee calculation` `depends: 5`
+### 12. Design the rate data schema
+`labels: core, research` `milestone: M2 — ESU fee calculation` `depends: 8`
 
 **Why.** Rates are data, not code. This issue decides how expressive that data
 gets to be — and therefore how many municipalities you can support without
@@ -224,8 +224,8 @@ touching Python.
 
 ---
 
-### 10. Research and record one municipality's real rate
-`labels: research` `milestone: M2 — ESU fee calculation` `depends: 9`
+### 13. Research and record one municipality's real rate
+`labels: research` `milestone: M2 — ESU fee calculation` `depends: 12`
 
 **Why.** One real, verified municipality beats ten plausible ones. This is
 also where you discover which questions the published materials don't answer.
@@ -248,8 +248,8 @@ out what the rule actually is.
 
 ---
 
-### 11. Implement `esu.py`
-`labels: core` `milestone: M2 — ESU fee calculation` `depends: 8, 10`
+### 14. Implement `esu.py`
+`labels: core` `milestone: M2 — ESU fee calculation` `depends: 11, 13`
 
 **Why.** Impervious area to dollars. The arithmetic is trivial; the policy
 (rounding, floors, caps, billing period) is where every bug will live.
@@ -257,7 +257,7 @@ out what the rule actually is.
 **Done when.**
 - [ ] `esu_count`, `billable_esu`, `annual_fee` implemented
 - [ ] `tests/test_esu.py` unskipped and passing, including golden numbers
-      from the real municipality in #10
+      from the real municipality in #13
 - [ ] Money is `Decimal` throughout — no `float` touches a dollar figure
 - [ ] `FeeResult` carries enough to explain the number to a skeptical user
 
@@ -270,8 +270,8 @@ out what the rule actually is.
 
 ---
 
-### 12. Implement `rates.py` loading and validation
-`labels: core` `milestone: M2 — ESU fee calculation` `depends: 9`
+### 15. Implement `rates.py` loading and validation
+`labels: core` `milestone: M2 — ESU fee calculation` `depends: 12`
 
 **Why.** The single door between disk and logic. Everything it lets through
 badly formed becomes a mystery bug three modules away.
@@ -292,8 +292,8 @@ badly formed becomes a mystery bug three modules away.
 
 ## M3 — Pervious pavement comparison
 
-### 13. Model material costs
-`labels: core` `milestone: M3 — Pervious comparison` `depends: 5`
+### 16. Model material costs
+`labels: core` `milestone: M3 — Pervious comparison` `depends: 8`
 
 **Why.** The savings side of your value proposition needs a cost side.
 
@@ -309,8 +309,8 @@ badly formed becomes a mystery bug three modules away.
 
 ---
 
-### 14. Research pavement costs and record provenance
-`labels: research` `milestone: M3 — Pervious comparison` `depends: 13`
+### 17. Research pavement costs and record provenance
+`labels: research` `milestone: M3 — Pervious comparison` `depends: 16`
 
 **Why.** These numbers drive a five-figure homeowner decision.
 
@@ -330,8 +330,8 @@ badly formed becomes a mystery bug three modules away.
 
 ---
 
-### 15. Implement swap eligibility and cost delta
-`labels: core` `milestone: M3 — Pervious comparison` `depends: 11, 14`
+### 18. Implement swap eligibility and cost delta
+`labels: core` `milestone: M3 — Pervious comparison` `depends: 14, 17`
 
 **Why.** Deciding *what can be swapped* and *what the swap costs extra* — the
 two inputs to every recommendation this app makes.
@@ -350,8 +350,8 @@ two inputs to every recommendation this app makes.
 
 ---
 
-### 16. Implement `compare()` and payback
-`labels: core` `milestone: M3 — Pervious comparison` `depends: 15`
+### 19. Implement `compare()` and payback
+`labels: core` `milestone: M3 — Pervious comparison` `depends: 18`
 
 **Why.** This produces the headline number. It's the reason the project exists.
 
@@ -375,8 +375,8 @@ two inputs to every recommendation this app makes.
 
 ## M4 — JSON API
 
-### 17. Define the request and response contract
-`labels: api` `milestone: M4 — JSON API` `depends: 5`
+### 20. Define the request and response contract
+`labels: api` `milestone: M4 — JSON API` `depends: 8`
 
 **Why.** You now have two codebases in two languages. This is the seam, and
 seams rot silently.
@@ -397,8 +397,8 @@ seams rot silently.
 
 ---
 
-### 18. Implement `POST /api/estimate`
-`labels: api` `milestone: M4 — JSON API` `depends: 16, 17`
+### 21. Implement `POST /api/estimate`
+`labels: api` `milestone: M4 — JSON API` `depends: 19, 20`
 
 **Why.** The MVP endpoint. One call, one scenario function, one result.
 
@@ -417,8 +417,8 @@ seams rot silently.
 
 ---
 
-### 19. Error handling and API tests
-`labels: api, tests` `milestone: M4 — JSON API` `depends: 18`
+### 22. Error handling and API tests
+`labels: api, tests` `milestone: M4 — JSON API` `depends: 21`
 
 **Why.** A 500 tells the user nothing and tells you almost as little.
 
@@ -438,8 +438,8 @@ seams rot silently.
 
 ---
 
-### 20. Municipality endpoint
-`labels: api` `milestone: M4 — JSON API` `depends: 12, 18`
+### 23. Municipality endpoint
+`labels: api` `milestone: M4 — JSON API` `depends: 15, 21`
 
 **Why.** The frontend has to tell the user where they are, and only from the
 list you can actually price.
@@ -453,8 +453,8 @@ list you can actually price.
 
 ## M5 — React + MUI frontend (MVP ships here)
 
-### 21. Scaffold the React app and talk to the API
-`labels: frontend` `milestone: M5 — React + MUI` `depends: 20`
+### 24. Scaffold the React app and talk to the API
+`labels: frontend` `milestone: M5 — React + MUI` `depends: 23`
 
 **Why.** Smallest possible first step: prove the two halves can speak before
 you build anything worth looking at.
@@ -479,8 +479,8 @@ React to be dangerous, on a component small enough to debug.
 
 ---
 
-### 22. Build the surface entry form
-`labels: frontend, ux` `milestone: M5 — React + MUI` `depends: 21`
+### 25. Build the surface entry form
+`labels: frontend, ux` `milestone: M5 — React + MUI` `depends: 24`
 
 **Why.** This is the component that justifies React. A list the user adds to
 and removes from, where the parent must always know the contents.
@@ -506,8 +506,8 @@ and removes from, where the parent must always know the contents.
 
 ---
 
-### 23. Build the results view
-`labels: frontend, ux` `milestone: M5 — React + MUI` `depends: 22`
+### 26. Build the results view
+`labels: frontend, ux` `milestone: M5 — React + MUI` `depends: 25`
 
 **Why.** One number the user came for, plus enough evidence to trust it.
 
@@ -528,8 +528,8 @@ and removes from, where the parent must always know the contents.
 
 ---
 
-### 24. Loading, error, and empty states
-`labels: frontend` `milestone: M5 — React + MUI` `depends: 23`
+### 27. Loading, error, and empty states
+`labels: frontend` `milestone: M5 — React + MUI` `depends: 26`
 
 **Why.** The happy path is maybe a third of the work, and the other two-thirds
 is what makes it feel finished.
@@ -549,8 +549,8 @@ is what makes it feel finished.
 
 ---
 
-### 25. Theme and responsive polish
-`labels: frontend, ux` `milestone: M5 — React + MUI` `depends: 24`
+### 28. Theme and responsive polish
+`labels: frontend, ux` `milestone: M5 — React + MUI` `depends: 27`
 
 **Why.** The reason you picked MUI. Cash it in — in one place.
 
@@ -570,8 +570,8 @@ is what makes it feel finished.
 
 ---
 
-### 26. MVP acceptance walkthrough
-`labels: milestone` `milestone: M5 — React + MUI` `depends: 25`
+### 29. MVP acceptance walkthrough
+`labels: milestone` `milestone: M5 — React + MUI` `depends: 28`
 
 **Why.** Declare it done deliberately, or you'll drift into Milestone 6 without
 ever having shipped anything.
@@ -591,8 +591,8 @@ ever having shipped anything.
 
 ## M6 — On-site mitigation costs
 
-### 27. Research BMP unit costs
-`labels: research` `milestone: M6 — Mitigation costs` `depends: 26`
+### 30. Research BMP unit costs
+`labels: research` `milestone: M6 — Mitigation costs` `depends: 29`
 
 **Done when.**
 - [ ] `data/mitigation_costs.json` populated for rain barrels, rain gardens,
@@ -606,8 +606,8 @@ ever having shipped anything.
 
 ---
 
-### 28. Determine the design storm and capture volume rule
-`labels: research` `milestone: M6 — Mitigation costs` `depends: 27`
+### 31. Determine the design storm and capture volume rule
+`labels: research` `milestone: M6 — Mitigation costs` `depends: 30`
 
 **Done when.**
 - [ ] The governing design storm for your target jurisdiction is documented
@@ -622,8 +622,8 @@ ever having shipped anything.
 
 ---
 
-### 29. Implement BMP sizing and costing
-`labels: core` `milestone: M6 — Mitigation costs` `depends: 28`
+### 32. Implement BMP sizing and costing
+`labels: core` `milestone: M6 — Mitigation costs` `depends: 31`
 
 **Done when.**
 - [ ] `size_bmp`, `capital_cost`, `annual_maintenance_cost` implemented
@@ -634,8 +634,8 @@ ever having shipped anything.
 
 ## M7 — Developer / permitting path
 
-### 30. Model development-scale inputs
-`labels: core` `milestone: M7 — Developer path` `depends: 29`
+### 33. Model development-scale inputs
+`labels: core` `milestone: M7 — Developer path` `depends: 32`
 
 **Sit with these.**
 - Is a development one `Property` with many surfaces, or many `Property`
@@ -643,8 +643,8 @@ ever having shipped anything.
 
 ---
 
-### 31. Implement `developer_scenario`
-`labels: core` `milestone: M7 — Developer path` `depends: 30`
+### 34. Implement `developer_scenario`
+`labels: core` `milestone: M7 — Developer path` `depends: 33`
 
 **Why.** The developer's real question: is it cheaper to build detention, or
 to pave pervious and avoid needing as much?
@@ -661,8 +661,8 @@ to pave pervious and avoid needing as much?
 
 ---
 
-### 32. Research permit thresholds
-`labels: research` `milestone: M7 — Developer path` `depends: 31`
+### 35. Research permit thresholds
+`labels: research` `milestone: M7 — Developer path` `depends: 34`
 
 **Done when.**
 - [ ] The disturbed-area threshold that triggers stormwater permitting in WV
@@ -674,8 +674,8 @@ to pave pervious and avoid needing as much?
 
 ## M8 — AI recommendation layer
 
-### 33. Implement the privacy boundary
-`labels: ai` `milestone: M8 — AI layer` `depends: 26`
+### 36. Implement the privacy boundary
+`labels: ai` `milestone: M8 — AI layer` `depends: 29`
 
 **Why.** Build the boundary before the thing that needs bounding.
 
@@ -691,8 +691,8 @@ to pave pervious and avoid needing as much?
 
 ---
 
-### 34. Write the system prompt
-`labels: ai` `milestone: M8 — AI layer` `depends: 33`
+### 37. Write the system prompt
+`labels: ai` `milestone: M8 — AI layer` `depends: 36`
 
 **Done when.**
 - [ ] The prompt forbids arithmetic, invented policy, and invented rebates
@@ -706,8 +706,8 @@ to pave pervious and avoid needing as much?
 
 ---
 
-### 35. Wire up generation
-`labels: ai` `milestone: M8 — AI layer` `depends: 34`
+### 38. Wire up generation
+`labels: ai` `milestone: M8 — AI layer` `depends: 37`
 
 **Done when.**
 - [ ] `generate_recommendation` calls the model with the summarized payload
@@ -723,8 +723,8 @@ to pave pervious and avoid needing as much?
 
 ---
 
-### 36. Implement the ungrounded-number guard
-`labels: ai, tests` `milestone: M8 — AI layer` `depends: 35`
+### 39. Implement the ungrounded-number guard
+`labels: ai, tests` `milestone: M8 — AI layer` `depends: 38`
 
 **Why.** The most important function in the AI layer. Without it, "the LLM
 never does math" is a hope rather than a property of the system.
@@ -743,8 +743,8 @@ never does math" is a hope rather than a property of the system.
 
 ## M9 — Map-based area capture
 
-### 37. Add map polygon drawing
-`labels: frontend, feature` `milestone: M9 — Map capture` `depends: 26`
+### 40. Add map polygon drawing
+`labels: frontend, feature` `milestone: M9 — Map capture` `depends: 29`
 
 **Why.** The biggest usability win available, and half the reason you adopted
 React in the first place.
@@ -763,8 +763,8 @@ React in the first place.
 
 ---
 
-### 38. Compute area from geometry correctly
-`labels: core, feature` `milestone: M9 — Map capture` `depends: 37`
+### 41. Compute area from geometry correctly
+`labels: core, feature` `milestone: M9 — Map capture` `depends: 40`
 
 **Done when.**
 - [ ] Areas computed in a projected CRS appropriate to West Virginia, not in
@@ -782,8 +782,8 @@ React in the first place.
 
 ## M10 — Future rainfall & benefits
 
-### 39. Bring in NOAA precipitation data
-`labels: research, feature` `milestone: M10 — Future rainfall` `depends: 29`
+### 42. Bring in NOAA precipitation data
+`labels: research, feature` `milestone: M10 — Future rainfall` `depends: 32`
 
 **Done when.**
 - [ ] Current precipitation-frequency values for the target area retrieved
@@ -793,8 +793,8 @@ React in the first place.
 
 ---
 
-### 40. Project future benefits
-`labels: feature` `milestone: M10 — Future rainfall` `depends: 39`
+### 43. Project future benefits
+`labels: feature` `milestone: M10 — Future rainfall` `depends: 42`
 
 **Why.** If storms intensify, mitigation built today is worth more than a
 present-day payback calculation suggests.
@@ -808,8 +808,8 @@ present-day payback calculation suggests.
 
 ## M11 — Multi-municipality scale-out
 
-### 41. Build the rate research pipeline
-`labels: research, infra` `milestone: M11 — Scale-out` `depends: 26`
+### 44. Build the rate research pipeline
+`labels: research, infra` `milestone: M11 — Scale-out` `depends: 29`
 
 **Done when.**
 - [ ] A documented, repeatable process for adding a municipality
@@ -822,8 +822,8 @@ present-day payback calculation suggests.
 
 ---
 
-### 42. Address to municipality lookup
-`labels: feature` `milestone: M11 — Scale-out` `depends: 41`
+### 45. Address to municipality lookup
+`labels: feature` `milestone: M11 — Scale-out` `depends: 44`
 
 **Sit with these.**
 - Municipal boundaries and mailing addresses disagree constantly — a

@@ -7,6 +7,7 @@ import { ThemeProvider, CssBaseline, Box, TextField, Button } from '@mui/materia
 import theme from './theme'
 import MunicipalityPicker from './components/MunicipalityPicker'
 import SurfaceList from './components/SurfaceList'
+import ResultsPanel from './components/ResultsPanel'
 import { requestEstimate } from './api/client'
 
 export default function App() {
@@ -56,7 +57,7 @@ export default function App() {
           <Button variant="contained" onClick={handleCalculate}>Calculate Estimate</Button>
         </Box>
       )}
-      {step === 3 && <p><p>{JSON.stringify(result)}</p></p>}
+      {step === 3 && <ResultsPanel result={result} />}
     </ThemeProvider>
   )
 
