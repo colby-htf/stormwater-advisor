@@ -58,10 +58,14 @@ def estimate(request: EstimateRequest) -> EstimateResponse:
         baseline=FeeResultResponse(
             esu_count=comparison.baseline.esu_count,
             annual_fee=comparison.baseline.annual_fee,
+            impervious_sqft=comparison.baseline.impervious_sqft,
+            billed_esu_count=comparison.baseline.billed_esu_count,
         ),
         proposed=FeeResultResponse(
             esu_count=comparison.proposed.esu_count,
             annual_fee=comparison.proposed.annual_fee,
+            impervious_sqft=comparison.proposed.impervious_sqft,
+            billed_esu_count=comparison.proposed.billed_esu_count,
         ),
         options=[
             PerviousOptionResponse(
@@ -77,4 +81,6 @@ def estimate(request: EstimateRequest) -> EstimateResponse:
         upfront_cost_delta=comparison.upfront_cost_delta,
         annual_savings=comparison.annual_savings,
         simple_payback_years=comparison.simple_payback_years,
+        rate_source_url=rate.source_url,
+        rate_verified_on=rate.verified_on
     )

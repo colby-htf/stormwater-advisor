@@ -30,6 +30,8 @@ class FeeResultResponse(BaseModel):
 
     esu_count: Decimal
     annual_fee: Decimal
+    impervious_sqft: float
+    billed_esu_count: Decimal
 
     model_config = ConfigDict(json_encoders={Decimal: str})
 
@@ -56,5 +58,7 @@ class EstimateResponse(BaseModel):
     upfront_cost_delta: Decimal
     annual_savings: Decimal
     simple_payback_years: float | None
+    rate_verified_on: str
+    rate_source_url: str
 
     model_config = ConfigDict(json_encoders={Decimal: str})
