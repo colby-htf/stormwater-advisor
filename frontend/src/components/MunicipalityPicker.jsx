@@ -2,8 +2,8 @@
  * Municipality selector dropdown.
  */
 
-import { useState, useEffect } from "react"
-import { fetchMunicipalities } from "../api/client"
+import { useState, useEffect } from 'react'
+import { fetchMunicipalities } from '../api/client'
 import { CircularProgress, Alert, MenuItem, Select, Button } from '@mui/material';
 
 

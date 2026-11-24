@@ -5,7 +5,6 @@ from fastapi.testclient import TestClient
 
 from stormwater.api import app, load_esu_rates
 
-
 client = TestClient(app)
 
 def test_healthz_returns_ok():
