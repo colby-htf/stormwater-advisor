@@ -3,7 +3,7 @@
  */
 
 import { useState } from 'react'
-import { ThemeProvider, CssBaseline, Box, TextField, Button } from '@mui/material'
+import { ThemeProvider, CssBaseline, Box, TextField, Button, CircularProgress } from '@mui/material'
 import theme from './theme'
 import MunicipalityPicker from './components/MunicipalityPicker'
 import SurfaceList from './components/SurfaceList'
@@ -54,7 +54,8 @@ export default function App() {
           <TextField label="Address" value={address} onChange={event => setAddress(event.target.value)}></TextField>
           <TextField type="number" label="Parcel area (sq ft)" value={parcelAreaSqft} onChange={event => setParcelAreaSqft(event.target.value)}></TextField>
           <SurfaceList surfaces={surfaces} onChange={setSurfaces} />
-          <Button variant="contained" onClick={handleCalculate}>Calculate Estimate</Button>
+          <Button disabled={loading} variant="contained" onClick={handleCalculate}>Calculate Estimate</Button>
+          {loading == true && <CircularProgress />}
         </Box>
       )}
       {step === 3 && <ResultsPanel result={result} />}
